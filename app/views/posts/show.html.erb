@@ -1,7 +1,9 @@
-<h1> <%= @post.title %> </h1>
+<h1> <%= link_to @post.title, @post.url %> </h1>
 <p>
   Posted by <%= @post.author.user_name %> at <%= @post.created_at %>
 </p>
 <p>
   <%= @post.content %>
 </p>
+<%= link_to "Edit this post", edit_post_url(@post) %>  |
+<%= link_to "Back to index", subs_url %> 

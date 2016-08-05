@@ -1,7 +1,14 @@
 class SubsController < ApplicationController
 
   before_action :check_sub_owner, only: [:update, :edit]
+  before_action :check_logged_in, only: [:create, :new]
 
+  def check_logged_in
+    unless current_user
+      flash[:errors] = ["You must log in before creating a sub!"]
+      redirect_to new_session_url
+    end
+  end
 
 
   def new

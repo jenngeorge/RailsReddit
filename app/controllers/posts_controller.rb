@@ -1,8 +1,17 @@
 class PostsController < ApplicationController
   before_action :check_post_owner, only: [:update, :edit]
+  before_action :check_logged_in, only: [:create, :new]
+
+  def check_logged_in
+    unless current_user
+      flash[:errors] = ["You must log in before creating a post!"]
+      redirect_to new_session_url
+    end
+  end
 
   def new
     @post = Post.new
+    @subs = Sub.all
   end
 
   def create
@@ -18,6 +27,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @subs = Sub.all
     @post = Post.find_by_id(params[:id])
     render :edit
   end
@@ -35,7 +45,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.include(:author).find_by_id(params[:id])
+    @post = Post.includes(:author, :subs).find_by_id(params[:id])
     render :show
   end
 
@@ -49,7 +59,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def sub_params
-    params.require(:post).permit(:title, :url, :content, :sub_id)
+  def post_params
+    params.require(:post).permit(:title, :url, :content, sub_ids: [])
   end
 end

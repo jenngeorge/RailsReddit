@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   validates :user_name, :session_token, :password_digest, presence: true
   validates :password, length: { in: 6..20, allow_nil: true }
 
-  has_many :subs
+  has_many :subs,
     primary_key: :id,
     foreign_key: :user_id,
     class_name: :Sub
