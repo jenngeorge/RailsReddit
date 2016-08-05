@@ -8,7 +8,7 @@
 <ul>
   <% @sub.posts.each do |post| %>
     <li>
-      <%= link_to post.title, post.url %> |
+      <%= link_to post.title, post.url || post_url(post) %> |
       <%= link_to "Comments", post_url(post) %>
     </li>
   <% end %>

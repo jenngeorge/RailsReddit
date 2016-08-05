@@ -1,0 +1,28 @@
+<form action="<%=action %>", method="post" >
+  <input type="hidden" name="_method" value="<%= method %>" />
+  <%= auth_token %>
+
+  <label id="post_title"> Title: </label>
+    <input
+      id="post_title"
+      name="post[title]"
+      value="<%= @post.title %>"
+     />
+
+  <label id="post_url"> URL: </label>
+     <input
+       id="post_url"
+       name="post[url]"
+       value="<%= @post.url %>"
+      />
+
+
+
+  <label id="post_content"> Content </label>
+    <textarea
+      id="post_content"
+      name="post[content]"> <%= @post.content %> </textarea>
+
+  <input type="Submit" value="<%= submit_msg %>">
+
+</form>
