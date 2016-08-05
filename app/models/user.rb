@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   attr_reader :password
   before_validation :ensure_session_token
 
+  has_many :votes 
+
   validates :user_name, :session_token, :password_digest, presence: true
   validates :password, length: { in: 6..20, allow_nil: true }
 
@@ -12,7 +14,7 @@ class User < ActiveRecord::Base
 
   has_many :comments,
     foreign_key: :user_id,
-    class_name: :Comment 
+    class_name: :Comment
 
   def password=(password)
     @password = password

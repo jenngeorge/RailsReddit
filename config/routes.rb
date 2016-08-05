@@ -11,5 +11,8 @@ Rails.application.routes.draw do
   end
   resources :comments, only: [:create]
 
+  post "/upvote", to: "votes#upvote"
+  post "/downvote", to: "votes#downvote"
+
   root to: "subs#index"
 end

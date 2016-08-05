@@ -10,6 +10,8 @@ class Post < ActiveRecord::Base
 
   has_many :comments
 
+  has_many :votes, as: :votable
+
   def comments_by_parent_id
     result = Hash.new { [] }
     comments.includes(:author).each do |comment|

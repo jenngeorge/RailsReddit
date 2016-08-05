@@ -2,6 +2,8 @@
 <p>
   Posted by <%= @post.author.user_name %> at <%= @post.created_at %>
 </p>
+<%= Vote.where(votable_id: @post.id, votable_type: "Post").sum(:value) %>
+<%= render "votes/vote_buttons", votable_id: @post.id, votable_type: "Post" %>
 <p>
   <%= @post.content %>
 </p>

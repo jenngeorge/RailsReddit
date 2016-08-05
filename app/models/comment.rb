@@ -7,6 +7,8 @@ class Comment < ActiveRecord::Base
 
   belongs_to :post
 
+  has_many :votes, as: :votable
+
   belongs_to :parent_comment,
     foreign_key: :parent_comment_id,
     class_name: :Comment
