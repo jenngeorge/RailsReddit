@@ -7,8 +7,10 @@
   <%= link_to "reply", new_comment_url(parent_comment_id: comment.id)%>
 
   <ul>
-    <% comment.child_comments.each do |child| %>
-      <li> <%= render "comments/comment", comment: child %> </li>
+    <% @comments.each do |child| %>
+      <% if child.parent_comment_id == comment.id %>
+        <li> <%= render "comments/comment", comment: child %> </li>
+      <% end %>
     <% end %>
   </ul>
 

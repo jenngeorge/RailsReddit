@@ -9,7 +9,9 @@
 <h3> Comments: </h3>
 <ul>
 <% @comments.each do |comment| %>
-  <li> <%= render "comments/comment", comment: comment %> </li>
+  <% if comment.parent_comment_id.nil? %>
+    <li> <%= render "comments/comment", comment: comment %> </li>
+  <% end %>
 <% end %>
 </ul>
 
