@@ -8,5 +8,15 @@ class Post < ActiveRecord::Base
   has_many :post_subs, inverse_of: :post
   has_many :subs, through: :post_subs, source: :sub
 
-  has_many :comments 
+  has_many :comments
+
+  def comments_by_parent_id
+    result = Hash.new { [] }
+    comments.includes(:author).each do |comment|
+      result[comment.parent_comment_id] += [comment]
+    end
+    result
+  end
+
+
 end
