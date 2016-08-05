@@ -2,12 +2,7 @@ class PostsController < ApplicationController
   before_action :check_post_owner, only: [:update, :edit]
   before_action :check_logged_in, only: [:create, :new]
 
-  def check_logged_in
-    unless current_user
-      flash[:errors] = ["You must log in before creating a post!"]
-      redirect_to new_session_url
-    end
-  end
+
 
   def new
     @post = Post.new
@@ -46,6 +41,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.includes(:author, :subs).find_by_id(params[:id])
+    @comments = @post.comments.where(parent_comment_id: nil)
     render :show
   end
 
@@ -56,6 +52,13 @@ class PostsController < ApplicationController
     unless @post.user_id == current_user.id
       flash[:errors] = ["You cannot edit a post that does not belong to you :("]
       redirect_to post_url(@post)
+    end
+  end
+
+  def check_logged_in
+    unless current_user
+      flash[:errors] = ["You must log in before creating a post!"]
+      redirect_to new_session_url
     end
   end
 

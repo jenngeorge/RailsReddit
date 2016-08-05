@@ -5,5 +5,14 @@
 <p>
   <%= @post.content %>
 </p>
+
+<h3> Comments: </h3>
+<ul>
+<% @comments.each do |comment| %>
+  <li> <%= render "comments/comment", comment: comment %> </li>
+<% end %>
+</ul>
+
+<%= link_to "New comment", new_comment_url(@post) %>  |
 <%= link_to "Edit this post", edit_post_url(@post) %>  |
-<%= link_to "Back to index", subs_url %> 
+<%= link_to "Back to index", subs_url %>
