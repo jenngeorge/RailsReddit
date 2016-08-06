@@ -1,4 +1,6 @@
 class Post < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :title,  use: [:slugged]
   validates :title, :user_id, presence: true
 
   belongs_to :author,
@@ -23,5 +25,9 @@ class Post < ActiveRecord::Base
   def score
     Vote.where(votable_id: id, votable_type: "Post").sum(:value)
   end
+
+  # def self.find
+  #   self.friendly.find
+  # end
 
 end

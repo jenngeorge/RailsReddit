@@ -23,12 +23,12 @@ class PostsController < ApplicationController
 
   def edit
     @subs = Sub.all
-    @post = Post.find_by_id(params[:id])
+    @post = Post.find_by_slug(params[:id])
     render :edit
   end
 
   def update
-    @post = Post.find_by_id(params[:id])
+    @post = Post.find_by_slug(params[:id])
     @post.user_id = current_user.id
 
     if @post.update(post_params)
@@ -40,7 +40,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.includes(:author, :subs).find_by_id(params[:id])
+    @post = Post.includes(:author, :subs).find_by_slug(params[:id])
     @comment_scores = Comment.where(post_id: @post.id).scores
     @comments_by_parent_id = @post.comments_by_parent_id
     render :show
@@ -49,7 +49,7 @@ class PostsController < ApplicationController
   private
 
   def check_post_owner
-    @post = Post.find_by_id(params[:id])
+    @post = Post.find_by_slug(params[:id])
     unless @post.user_id == current_user.id
       flash[:errors] = ["You cannot edit a post that does not belong to you :("]
       redirect_to post_url(@post)
