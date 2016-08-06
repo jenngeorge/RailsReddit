@@ -26,6 +26,15 @@ class Post < ActiveRecord::Base
     Vote.where(votable_id: id, votable_type: "Post").sum(:value)
   end
 
+  #TODO: order scores 
+  # def post_score
+  #   .where(votable_type: "Comment")
+  #   .group(:votable_id)
+  #   .sum(:value)
+  # end
+
+
+
   # def self.find
   #   self.friendly.find
   # end
