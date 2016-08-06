@@ -20,5 +20,8 @@ class Post < ActiveRecord::Base
     result
   end
 
+  def score
+    Vote.where(votable_id: id, votable_type: "Post").sum(:value)
+  end
 
 end
